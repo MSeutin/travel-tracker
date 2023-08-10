@@ -1,9 +1,9 @@
 import './App.css';
-import SpecsContainer from './components/SpecsContainer';
+import ListContainer from './components/ListContainer';
 
 function App() {
   return (<>
-    <SpecsContainer />
+    <ListContainer />
   </>);
 }
 
