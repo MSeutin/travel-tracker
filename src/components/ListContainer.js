@@ -9,11 +9,17 @@ function ListContainer() {
   const [inputValue, setInputValue] = useState('')
   const [list, setList] = useState(listArr)
 
-  return (<>
-    <ListInput inputValue={inputValue} setInputValue={setInputValue} list={list} setList={setList} />
-    {console.log(inputValue)}
-    <ListItem list={list} />
-  </>)
+  return (
+    <div className="flex flex-col items-center justify-start h-screen">
+      <ListInput
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        list={list}
+        setList={setList}
+      />
+      <ListItem list={list} setList={setList}/>
+    </div>
+  );
 }
 
 export default ListContainer
