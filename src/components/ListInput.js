@@ -19,7 +19,7 @@ function ListInput({inputValue, setInputValue, list, setList}) {
   }
 
   return (
-    <dic className="flex gap-3 mb-5">
+    <div className="flex gap-3 mb-5">
       <input
         name="specs"
         value={inputValue}
@@ -40,7 +40,7 @@ function ListInput({inputValue, setInputValue, list, setList}) {
       className="px-3 py-1 bg-red-800 text-white rounded hover:bg-red-600">
         Clear All
       </button>
-    </dic>
+    </div>
   );
 }
 
