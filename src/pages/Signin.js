@@ -20,8 +20,9 @@ export default function Signin() {
         }
     }, [user])
 
-  return <div className="text-amber-500 text-center">
-    <h1>Signin</h1>
-    <GoogleButton onClick={handleGoogleSignin} />
-  </div>;
+  return (
+    <div className="px-4 py-8 flex flex-col justify-center items-center">
+      <GoogleButton onClick={handleGoogleSignin} />
+    </div>
+  );
 }

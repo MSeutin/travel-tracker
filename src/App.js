@@ -8,12 +8,10 @@ import { Route, Routes } from 'react-router-dom';
 import Protected from './components/Protected';
 
 function App() {
-  // placeholder, replace with actual firebase auth in the future
-  const username = "Michael"
   return (
     <AuthContextProvider>
-    <div className="bg-zinc-800 text-zinc-900 font-mono">
-      <Header username={username} />
+    <div className="bg-zinc-800 text-zinc-200 font-mono h-screen">
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
