@@ -10,7 +10,7 @@ function ListContainer() {
   const [list, setList] = useState(listArr)
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen">
+    <div className="flex flex-col items-center justify-start border-2 border-red-800 py-10 w-1/3 rounded-lg">
       <ListInput
         inputValue={inputValue}
         setInputValue={setInputValue}
