@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faEarthAmericas } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faEarthAmericas, faHouse, faUmbrellaBeach } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header({username}) {
   const { user, logOut } = UserAuth()
@@ -14,7 +14,7 @@ export default function Header({username}) {
   }
 
   return (
-    <nav className="sticky top-0 flex justify-between items-center text-zinc-100 bg-zinc-700 py-2 px-4">
+    <nav className="sticky top-0 flex justify-between items-center text-zinc-300 bg-zinc-700 py-2 px-4">
       <div className="flex items-center space-x-4">
         <FontAwesomeIcon
           icon={faEarthAmericas}
@@ -24,34 +24,50 @@ export default function Header({username}) {
         />
         <span className="text-2xl font-bold">Travel Planner</span>
       </div>
-      <div className="text-right flex space-x-4">
-        {user?.photoURL && (
-          <div className="flex items-center">
-            <img
-              src={user.photoURL}
-              alt={user.displayName}
-              className="h-8 w-8 rounded-full border-2 border-zinc-100"
-            />
-          </div>
-        )}
-        {user?.displayName ? (
-          <>
-            <button
-              onClick={handleLogOut}
-              className="bg-transparent border-2  px-2 py-1 rounded ml-10 hover:bg-zinc-200 hover:text-zinc-900 transition-colors"
+      <div className="flex items-center gap-10">
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "text-green-300 mr-1 hover:text-zinc-50" : "mr-1 hover:text-zinc-50")}
+        >
+          <FontAwesomeIcon icon={faHouse} className="mr-1" />
+          Home
+        </NavLink>
+        <NavLink
+          to="/account"
+          className={({ isActive }) => (isActive ? "text-green-300 mr-1 hover:text-zinc-50" : "mr-1 hover:text-zinc-50")}
+        >
+          <FontAwesomeIcon icon={faUmbrellaBeach} className="mr-1" />
+          Dashboard
+        </NavLink>
+        <div className="flex items-center">
+          {user?.photoURL && (
+            <div>
+              <img
+                src={user.photoURL}
+                alt={user.displayName}
+                className="h-8 w-8 rounded-full border-2 border-zinc-100"
+              />
+            </div>
+          )}
+          {user?.displayName ? (
+            <>
+              <button
+                onClick={handleLogOut}
+                className="bg-transparent border-2  px-2 py-1 rounded ml-3 hover:bg-zinc-200 hover:text-zinc-900 transition-colors"
+                to="/signin"
+              >
+                LogOut
+              </button>
+            </>
+          ) : (
+            <Link
               to="/signin"
+              className="bg-transparent border-2  px-2 py-1 rounded ml-10 hover:bg-zinc-200 hover:text-zinc-900 transition-colors"
             >
-              LogOut
-            </button>
-          </>
-        ) : (
-          <Link
-            className="bg-transparent border-2  px-2 py-1 rounded ml-10 hover:bg-zinc-200 hover:text-zinc-900 transition-colors"
-            to="/signin"
-          >
-            Sign In
-          </Link>
-        )}
+              Sign In
+            </Link>
+          )}
+        </div>
       </div>
     </nav>
   );

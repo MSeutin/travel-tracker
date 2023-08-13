@@ -10,7 +10,7 @@ import Protected from './components/Protected';
 function App() {
   return (
     <AuthContextProvider>
-    <div className="bg-zinc-800 text-zinc-200 font-mono h-screen">
+    <div className="bg-zinc-800 text-zinc-200 font-mono min-h-screen">
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
