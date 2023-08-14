@@ -1,15 +1,29 @@
 import React, { useState } from "react";
+import { useTripContext } from "../../context/TripContext";
 
 export default function AddNewTrip() {
+  const { addNewTrip } = useTripContext();
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Create a new trip object with the form data
+    const newTrip = {
+      id: Date.now(),
+      destination,
+      startDate,
+      endDate,
+    };
 
-    // You can handle submitting the form data here,
-    // such as sending it to a server or updating state.
+    // Call the addNewTrip function with the new trip data
+    addNewTrip(newTrip);
+
+    // Clear the form fields after submission
+    setDestination("");
+    setStartDate("");
+    setEndDate("");
   };
 
   return (

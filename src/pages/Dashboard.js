@@ -1,16 +1,15 @@
+import { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext'
 import DashboardNav from '../components/Dashboard/DashboardNav';
-import AddNewTrip from '../components/Dashboard/AddNewTrip';
+import UpcomingTrips from '../components/Dashboard/UpcomingTrips';
+import Display from '../components/Dashboard/Display';
+import { useTripContext } from '../context/TripContext';
+
 
 export default function Dashboard() {
-    const { user, logOut } = UserAuth()
-      const handleLogOut = async () => {
-        try {
-          await logOut();
-        } catch (error) {
-          console.log(error);
-        }
-      };
+  const { user, logOut } = UserAuth();
+  const trips = useTripContext();
+
   return (
     <div className="flex">
       {/* Left Navigation Column */}
@@ -24,7 +23,8 @@ export default function Dashboard() {
           Welcome, {user?.displayName}
         </h1>
         {/* Your content goes here */}
-        <AddNewTrip />
+        <Display />
+        <UpcomingTrips />
       </div>
     </div>
   );
