@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Travel Planner
+This Startup is in progress.  
+Travel Planner aims to help users inspire, budget, plan and keep track of user's future travel adventures or vacation.  It aims to be as visually inspiring as it is practical and unique.  
+Additional features are planned but not limited to:
+- capacity to connect with other travelers
+- share tips
+- use apis to get destination analytics and data
+- use crowd sourcing for more accurate and personalized metrics
+  
+## Dashboard (onced logged in)
+1. **Itinerary**: Allow users to create and manage their trip itinerary, including day-to-day plans, activities, and reservations.
+2. **Notes**: Provide a space for users to jot down notes, recommendations, and important information related to their trip.
+3. **Checklists**: Besides packing lists, offer customizable checklists for various travel tasks like booking flights, accommodation, transportation, and more.
+4. **Photos**: Allow users to upload and store photos taken during their trip, creating a visual memory of their experiences.
+5. **Map Integration**: Integrate maps to display the user's destination, attractions, restaurants, and other points of interest.
+6. **Currency Converter**: Include a currency converter to help users manage their budget in different currencies.
+7. **Local Time**: Display the local time of the destination to assist users in adjusting to the time difference.
+8. **Transportation**: Provide options for tracking transportation details, such as flight numbers, train schedules, and car rentals.
+9. **Expenses Tracking**: Create a section for users to log and track their expenses during the trip.
+10. **Travel Documents**: Allow users to upload and store important travel documents, such as passports, visas, and travel insurance.
+11. **Social Sharing**: Offer the ability to share their trip updates and experiences on social media platforms directly from the dashboard.
+12. **Reminders**: Enable users to set reminders for important dates, activities, or tasks related to their trip.
+13. **Weather Forecast**: In addition to current weather, provide a weather forecast for the duration of the trip.
+14. **Collaboration**: Allow multiple users to collaborate and plan a trip together, sharing information and updates.
+15. **Feedback and Reviews**: Give users the option to provide feedback and write reviews about their trip experiences.
+16. **Travel Tips**: Provide helpful travel tips and recommendations based on the destination.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+### Key Features (Prominently Displayed):
 
-## Available Scripts
+- Community Driven Recommendations
+- Budget Tracking
+- Packing Lists
+- Weather Forecast
+  
+### Additional Features (Clickable Icons):
 
-In the project directory, you can run
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Itinerary Planning
+- Notes and Recommendations
+- Map Integration
+- Local Time

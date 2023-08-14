@@ -1,4 +1,4 @@
-import travelImage from "../images/travel1.svg";
+import travelImage from "../../images/travel1.svg";
 
 export default function Hero() {
   return (
