@@ -29,9 +29,9 @@ Additional features are planned but not limited to:
 ### Key Features (Prominently Displayed):
 
 - Community Driven Recommendations
-- Budget Tracking
+- Budget Creation & Tracking
 - Packing Lists
-- Weather Forecast
+- Destination Metrics (time, weather, ...)
   
 ### Additional Features (Clickable Icons):
 

@@ -1,4 +1,8 @@
-import adventureImage from "../../images/adventure1.svg";
+import Feature from "./Feature";
+import communityImage from "../../images/community.svg";
+import budgetImage from "../../images/budget.svg";
+import packingImage from "../../images/packing.svg";
+import metricsImage from "../../images/metrics.svg";
 
 export default function Features() {
   return (
@@ -7,93 +11,35 @@ export default function Features() {
         <h2 className="text-3xl font-semibold mb-8">Key Features</h2>
         <div className="flex flex-wrap -mx-4">
           {/* FEATURE 1  */}
-          <div className="w-full md:w-1/2 px-4 mb-8">
-            <div className="flex items-start">
-              <div className="mr-4">
-                {/* Add your icon here */}
-                <img
-                  src={adventureImage}
-                  alt="Adventure Icon"
-                  className="w-20 h-20"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Destination Suggestions
-                </h3>
-                <p className="text-gray-700">
-                  Get personalized destination suggestions based on your
-                  preferences and interests.
-                </p>
-              </div>
-            </div>
-          </div>
+          <Feature
+            image={communityImage}
+            alt="Community Driven Recommendations Icon"
+            title="Community Driven Recommendations"
+            text="Get personalized destination suggestions based on your preferences and interests."
+          />
           {/* FEATURE 2  */}
-          <div className="w-full md:w-1/2 px-4 mb-8">
-            <div className="flex items-start">
-              <div className="mr-4">
-                {/* Add your icon here */}
-                <img
-                  src={adventureImage}
-                  alt="Adventure Icon"
-                  className="w-20 h-20"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Destination Suggestions
-                </h3>
-                <p className="text-gray-700">
-                  Get personalized destination suggestions based on your
-                  preferences and interests.
-                </p>
-              </div>
-            </div>
-          </div>
+          <Feature
+            image={budgetImage}
+            alt="Budget Icon"
+            title="Budget Creation & Tracking"
+            text="Get personalized budget suggestions based on your hotel, flight, and lifestyle preferences."
+          />
           {/* FEATURE 3 */}
-          <div className="w-full md:w-1/2 px-4 mb-8">
-            <div className="flex items-start">
-              <div className="mr-4">
-                {/* Add your icon here */}
-                <img
-                  src={adventureImage}
-                  alt="Adventure Icon"
-                  className="w-20 h-20"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Destination Suggestions
-                </h3>
-                <p className="text-gray-700">
-                  Get personalized destination suggestions based on your
-                  preferences and interests.
-                </p>
-              </div>
-            </div>
-          </div>
+          <Feature
+            image={packingImage}
+            alt="Packing Icon"
+            title="Packing Lists"
+            text="Get the default packing suggestions or alter it to fit your needs."
+          />
           {/* FEATURE 4 */}
-          <div className="w-full md:w-1/2 px-4 mb-8">
-            <div className="flex items-start">
-              <div className="mr-4">
-                {/* Add your icon here */}
-                <img
-                  src={adventureImage}
-                  alt="Adventure Icon"
-                  className="w-20 h-20"
-                />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Destination Suggestions
-                </h3>
-                <p className="text-gray-700">
-                  Get personalized destination suggestions based on your
-                  preferences and interests.
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* title: "Destination Metrics"  */}
+          {/* text: "Keep track of local currency, weather, and more." */}
+          <Feature
+            image={metricsImage}
+            alt="Destination Icon"
+            title="Destination Metrics"
+            text="Keep track of local currency, weather, and more."
+          />
         </div>
       </div>
     </section>

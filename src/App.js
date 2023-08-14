@@ -2,7 +2,7 @@ import ListContainer from './components/ListContainer';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Signin from './pages/Signin';
-import Account from './pages/Account';
+import Dashboard from './pages/Dashboard';
 import { AuthContextProvider } from './context/AuthContext';
 import { Route, Routes } from 'react-router-dom';
 import Protected from './components/Protected';
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/account" element={<Protected><Account /></Protected>} />
+        <Route path="/dashboard" element={<Protected><Dashboard /></Protected>} />
       </Routes>
     </div>
     </AuthContextProvider>

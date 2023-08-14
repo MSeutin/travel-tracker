@@ -33,7 +33,7 @@ export default function Header({username}) {
           Home
         </NavLink>
         <NavLink
-          to="/account"
+          to="/dashboard"
           className={({ isActive }) => (isActive ? "text-green-300 mr-1 hover:text-zinc-50" : "mr-1 hover:text-zinc-50")}
         >
           <FontAwesomeIcon icon={faUmbrellaBeach} className="mr-1" />

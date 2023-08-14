@@ -7,7 +7,6 @@ export default function Home() {
     <div className="px-4 py-8">
       <Hero />
       <Features />
-      <AdditionalFeatures />
     </div>
   );
 }

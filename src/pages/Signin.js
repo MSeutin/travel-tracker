@@ -16,7 +16,7 @@ export default function Signin() {
 
     useEffect(() => {
         if(user !== null){
-            navigate('/account')
+            navigate('/dashboard')
         }
     }, [user])
 
