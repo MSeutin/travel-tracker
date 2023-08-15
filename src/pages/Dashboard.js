@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { UserAuth } from '../context/AuthContext'
 import DashboardNav from '../components/Dashboard/DashboardNav';
 import UpcomingTrips from '../components/Dashboard/UpcomingTrips';
-import Display from '../components/Dashboard/Display';
+import Display from './Display';
 import { useTripContext } from '../context/TripContext';
 
 

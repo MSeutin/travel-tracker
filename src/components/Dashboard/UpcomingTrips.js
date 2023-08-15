@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useTripContext } from "../../context/TripContext";
 
@@ -9,16 +8,15 @@ export default function UpcomingTrips() {
     <div className="mb-4">
       <h2 className="text-lg font-semibold mb-2">Upcoming Trips</h2>
       {trips.length > 0 ? (
-        <ul className="list-disc pl-6">
+        <ul className="flex flex-wrap gap-8">
           {trips.map((trip, index) => (
-            <li key={index}>
               <Link
+                key={index}
                 to={`/dashboard/trip/${trip.id}`}
-                className="hover:underline"
+                className="inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700"
               >
-                {trip.destination}
+                {trip.destination} - {trip.startDate}
               </Link>
-            </li>
           ))}
         </ul>
       ) : (
