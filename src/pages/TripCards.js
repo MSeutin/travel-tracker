@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTripContext } from "../context/TripContext";
+import { db, auth } from "../config/firebase";
+import { collection, addDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import DashboardNav from "../components/Dashboard/DashboardNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +11,46 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 export default function TripCard() {
   //   const { id, destination, startDate, endDate } = trip;
   const { tripId } = useParams();
-  const { trips } = useTripContext();
+  const { trips, addNewTrip, deleteTrip } = useTripContext();
   const [currentTrip, setCurrentTrip] = useState(null);
+  let navigate = useNavigate();
+
+  // Function to delete the trip from the database
+  const deleteTripFromDatabase = async (tripId) => {
+    const user = auth.currentUser;
+    if (!user) return;
+    const tripRef = doc(db, `users/${user.uid}/trips/${tripId}`);
+    console.log("Trip ref:", tripRef.path);
+      try {
+        console.log("Deleting trip from database..."); // Add this line
+        await deleteDoc(tripRef);
+        console.log("Trip deleted from database."); // Add this line
+      } catch (error) {
+        console.error("Error deleting trip from database:", error);
+      }
+  };
+
+  // Function to delete the trip locally
+  const deleteTripLocally = (tripId) => {
+    // Delete the trip locally
+    deleteTrip(tripId);
+  };
+
+  // handle delete button
+ const handleDeleteTrip = async (tripId) => {
+   try {
+     // Delete the trip from the database
+     await deleteTripFromDatabase(tripId);
+
+     // Delete the trip locally
+     deleteTripLocally(tripId);
+     navigate("/dashboard");
+     console.log("Delete process completed."); // Add this line
+   } catch (error) {
+     console.error("Error deleting trip:", error);
+   }
+ };
+
 
   useEffect(() => {
     // Find the trip with the matching tripId in the trips array
@@ -32,7 +72,6 @@ export default function TripCard() {
 
   const { destination, startDate, endDate } = currentTrip;
 
-
   // RETURN
   return (
     <div className="flex">
@@ -49,7 +88,10 @@ export default function TripCard() {
             {/* Destination */}
             <h3 className="text-2xl font-semibold">
               {destination}
-              <button className="text-red-800 hover:text-red-600 ml-3">
+              <button
+                className="text-red-800 hover:text-red-600 ml-3"
+                onClick={() => handleDeleteTrip(currentTrip.id)}
+              >
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>
             </h3>
@@ -61,12 +103,12 @@ export default function TripCard() {
           {/* Dates */}
           <div className="text-zinc-400">
             <p className="flex gap-10">
-              <p>
+              <span>
                 Start Date: <span className="text-zinc-300">{startDate}</span>
-              </p>
-              <p>
+              </span>
+              <span>
                 End Date: <span className="text-zinc-300">{endDate}</span>
-              </p>
+              </span>
             </p>
           </div>
         </div>

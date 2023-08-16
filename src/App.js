@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import AddTrip from "./pages/AddTrip";
 import Dashboard from "./pages/Dashboard";
-import TripCard from "./pages/TripCard";
+import TripCard from "./pages/TripCards";
 import Upcoming from "./pages/Upcoming";
 import PastTrip from "./pages/PastTrips";
 import { AuthContextProvider } from "./context/AuthContext";

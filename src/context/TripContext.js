@@ -14,9 +14,14 @@ export function TripProvider({ children }) {
     setTrips([...trips, newTrip]);
   };
 
+  const deleteTrip = (tripId) => {
+    setTrips(trips.filter((trip) => trip.id !== tripId));
+  };
+
   const value = {
     trips,
     addNewTrip,
+    deleteTrip,
   };
 
   return <TripContext.Provider value={value}>{children}</TripContext.Provider>;

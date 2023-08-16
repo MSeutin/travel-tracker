@@ -11,6 +11,8 @@ export default function UpcomingTrips() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+        console.log("UpcomingTrips component mounted");
+        console.log("Trips from context:", trips);
     const fetchTrips = async () => {
         const user = auth.currentUser;
         if (!user) return;
@@ -40,7 +42,7 @@ export default function UpcomingTrips() {
     
     // Call the fetchTrips function
     fetchTrips();
-  },[addNewTrip]);
+  },[trips]);
 
   console.log("After fetchTrips, trips:", trips);
 
