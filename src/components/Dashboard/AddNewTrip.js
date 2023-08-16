@@ -37,7 +37,8 @@ export default function AddNewTrip() {
 
     // Add the new trip to the "trips" collection
     try {
-      const docRef = await addDoc(tripsCollection, newTrip);
+    //   const docRef = await addDoc(tripsCollection, newTrip);
+    const docRef = await setDoc(doc(tripsCollection, `${newTrip.id}`), newTrip);
       console.log("Document written with ID: ", docRef.id);
     } catch (error) {
       console.error("Error adding document: ", error);
