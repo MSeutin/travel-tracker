@@ -1,8 +1,48 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTripContext } from "../../context/TripContext";
+import { db, auth } from "../../config/firebase";
+import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
 
 export default function UpcomingTrips() {
-  const { trips } = useTripContext(); // Get the trips from context
+  // get trips from context
+  const { trips, addNewTrip } = useTripContext();
+  console.log("Context trips:", trips);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTrips = async () => {
+        const user = auth.currentUser;
+        if (!user) return;
+        const tripsRef = collection(db, "users", user.uid, "trips");
+        const tripsQuery = query(tripsRef)
+
+        // try catch
+        try {
+          const querySnapshot = await getDocs(tripsQuery);
+          const fetchedTrips = querySnapshot.docs.map((doc) => doc.data());
+
+          // Filter out existing trips from fetched trips
+          const newTrips = fetchedTrips.filter((newTrip) =>
+            trips.every((existingTrip) => existingTrip.id !== newTrip.id)
+          );
+
+          // Add only new trips to the state
+          newTrips.forEach((trip) => {
+            addNewTrip(trip);
+          });
+
+          setLoading(false);
+        } catch(error) {
+          console.log(error);
+        }
+    }
+    
+    // Call the fetchTrips function
+    fetchTrips();
+  },[addNewTrip]);
+
+  console.log("After fetchTrips, trips:", trips);
 
   return (
     <div className="mb-4">

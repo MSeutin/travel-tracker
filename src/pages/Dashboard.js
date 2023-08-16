@@ -8,7 +8,7 @@ import { useTripContext } from '../context/TripContext';
 
 export default function Dashboard() {
   const { user, logOut } = UserAuth();
-  const trips = useTripContext();
+  const { trips, addNewTrip } = useTripContext();
 
   return (
     <div className="flex">

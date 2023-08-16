@@ -62,7 +62,6 @@ useEffect(() => {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {cities.map((city) => {
           const cityTime = cityTimes.find((ct) => ct.city === city.name);
-          console.log(`City time for ${city.name}:`, cityTime);
           return (
             <div
               key={city.name}

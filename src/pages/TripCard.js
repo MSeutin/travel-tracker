@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTripContext } from "../context/TripContext";
 import DashboardNav from "../components/Dashboard/DashboardNav";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export default function TripCard() {
   //   const { id, destination, startDate, endDate } = trip;
@@ -30,6 +32,8 @@ export default function TripCard() {
 
   const { destination, startDate, endDate } = currentTrip;
 
+
+  // RETURN
   return (
     <div className="flex">
       {/* LEFT NAV COLUMN */}
@@ -43,14 +47,19 @@ export default function TripCard() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             {/* Destination */}
-            <h3 className="text-2xl font-semibold">{destination}</h3>
+            <h3 className="text-2xl font-semibold">
+              {destination}
+              <button className="text-red-800 hover:text-red-600 ml-3">
+                <FontAwesomeIcon icon={faTrashCan} />
+              </button>
+            </h3>
             {/* Local Time */}
-            <span className="text-gray-600 ml-5">
+            <span className="text-zinc-400 ml-5">
               {new Date().toLocaleTimeString()}
             </span>
           </div>
           {/* Dates */}
-          <div className="text-gray-600">
+          <div className="text-zinc-400">
             <p className="flex gap-10">
               <p>
                 Start Date: <span className="text-zinc-300">{startDate}</span>

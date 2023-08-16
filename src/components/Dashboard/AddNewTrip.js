@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTripContext } from "../../context/TripContext";
+import { db, auth } from "../../config/firebase";
+import { collection, addDoc, doc, setDoc, getDoc, getDocs } from "firebase/firestore";
 
 export default function AddNewTrip() {
   const { addNewTrip } = useTripContext();
@@ -7,8 +9,17 @@ export default function AddNewTrip() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const handleSubmit = (e) => {
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // get the currently logged in user
+    const user = auth.currentUser;
+
+    // if no user is logged in
+    if (!user) return;
+
     // Create a new trip object with the form data
     const newTrip = {
       id: Date.now(),
@@ -16,6 +27,21 @@ export default function AddNewTrip() {
       startDate,
       endDate,
     };
+
+    // Reference to the "users" collection
+    const usersCollection = collection(db, "users");
+
+    // Reference to the "trips" subcollection under the user's document
+    const userRef = doc(usersCollection, user.uid);
+    const tripsCollection = collection(userRef, "trips");
+
+    // Add the new trip to the "trips" collection
+    try {
+      const docRef = await addDoc(tripsCollection, newTrip);
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
 
     // Call the addNewTrip function with the new trip data
     addNewTrip(newTrip);
