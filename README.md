@@ -1,5 +1,5 @@
 # Travel Planner
-This Startup is in progress.  
+This Startup is in progress 
 Travel Planner aims to help users inspire, budget, plan and keep track of user's future travel adventures or vacation.  It aims to be as visually inspiring as it is practical and unique.  
 Additional features are planned but not limited to:
 - capacity to connect with other travelers
