@@ -1,7 +1,7 @@
 {
   "name": "mvp-app",
   "version": "0.1.0",
-  "homepage": "https://MSeutin.github.io/",
+  "homepage": "https://MSeutin.github.io/day-tracker/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
