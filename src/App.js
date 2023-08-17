@@ -1,5 +1,5 @@
-import ListContainer from "./components/ListContainer";
-import Header from "./components/Header";
+import ListContainer from "./components/Lists/ListContainer";
+import Header from "./components/Home/Header";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import AddTrip from "./pages/AddTrip";
@@ -45,7 +45,14 @@ function App() {
                 </Protected>
               }
             />
-            <Route path="/dashboard/past" element={<Protected><PastTrip /></Protected>} />
+            <Route
+              path="/dashboard/past"
+              element={
+                <Protected>
+                  <PastTrip />
+                </Protected>
+              }
+            />
             <Route
               path="/dashboard/trip/:tripId"
               element={

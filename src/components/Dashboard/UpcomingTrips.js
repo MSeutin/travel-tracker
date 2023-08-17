@@ -57,7 +57,7 @@ export default function UpcomingTrips() {
                 to={`/dashboard/trip/${trip.id}`}
                 className="inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700"
               >
-                {trip.destination} - {trip.startDate}
+                {trip.city}, {trip.country} - {trip.startDate}
               </Link>
           ))}
         </ul>

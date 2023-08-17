@@ -4,7 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesomeIcon
 import { faClock } from "@fortawesome/free-solid-svg-icons"; // Import the clock icon
 
-export default function Display() {
+export default function WorldClocks() {
   const cities = [
     { name: "Tokyo", continent: "Asia", timezone: "Asia/Tokyo" },
     { name: "Cairo", continent: "Africa", timezone: "Africa/Cairo" },
@@ -25,7 +25,7 @@ useEffect(() => {
       cities.map(async (city) => {
         try {
           const response = await axios.get(
-            `http://worldtimeapi.org/api/timezone/${city.timezone}`
+            `https://worldtimeapi.org/api/timezone/${city.timezone}`
           );
           const datetime = response.data.datetime;
           const [datePart, timePart] = datetime.split("T");

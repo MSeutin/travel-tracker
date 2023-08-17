@@ -1,5 +1,4 @@
-import DashboardNav from "../components/Dashboard/DashboardNav"
-import AddNewTrip from "../components/Dashboard/AddNewTrip"
+import { AddNewTrip, DashboardNav } from "../components/Dashboard";
 
 export default function AddTrip() {
   return (

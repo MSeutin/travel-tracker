@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext'
+import { UserAuth } from '../../context/AuthContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faEarthAmericas, faHouse, faUmbrellaBeach } from "@fortawesome/free-solid-svg-icons";
 

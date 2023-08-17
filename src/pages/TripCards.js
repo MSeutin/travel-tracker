@@ -5,8 +5,9 @@ import { useTripContext } from "../context/TripContext";
 import { db, auth } from "../config/firebase";
 import { collection, addDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import DashboardNav from "../components/Dashboard/DashboardNav";
+import Card from "../components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faSun, faCoins, faCartFlatbedSuitcase, faSackDollar, faImage, faClipboard, faPassport, faCalendarDays, faHandHolding, faFaceSmileWink } from "@fortawesome/free-solid-svg-icons";
 
 export default function TripCard() {
   //   const { id, destination, startDate, endDate } = trip;
@@ -70,7 +71,7 @@ export default function TripCard() {
     return <div>Loading...</div>;
   }
 
-  const { destination, startDate, endDate } = currentTrip;
+  const { city, country, startDate, endDate } = currentTrip;
 
   // RETURN
   return (
@@ -87,7 +88,7 @@ export default function TripCard() {
           <div className="flex items-center">
             {/* Destination */}
             <h3 className="text-2xl font-semibold">
-              {destination}
+              {city}, {country}
               <button
                 className="text-red-800 hover:text-red-600 ml-3"
                 onClick={() => handleDeleteTrip(currentTrip.id)}
@@ -117,116 +118,106 @@ export default function TripCard() {
         {/* ROW 1 */}
         <div className="w-full px-2 mb-4 flex gap-2">
           {/* Weather Information */}
-          <div className="w-1/2">
-            <div className="bg-blue-200 rounded-md p-2 mb-2">
-              <p className="text-blue-600 font-semibold">Weather Information</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the weather during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Weather Information"
+            description="Stay informed about the weather during your trip"
+            icon={faSun}
+            iconColor={"f5f83a"}
+          />
 
           {/* Currency Exchange Information */}
-          <div className="w-1/2">
-            <div className="bg-red-200 rounded-md p-2 mb-2">
-              <p className="text-red-600 font-semibold">Currency Information</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about currency exchange during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Currency Information"
+            description="Stay informed about currency exchange during your trip"
+            icon={faCoins}
+            iconColor={"22511f"}
+            bgColor={"bg-red-200"}
+            textColor={"text-red-600"}
+          />
         </div>
 
         {/* ROW 2 */}
         <div className="w-full px-2 mb-4 flex gap-2">
           {/* Packing List */}
-          <div className="w-1/2">
-            <div className="bg-blue-200 rounded-md p-2 mb-2">
-              <p className="text-blue-600 font-semibold">Packing List</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the packing list during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Packing List"
+            description="Stay informed about the packing list during your trip"
+            icon={faCartFlatbedSuitcase}
+            iconColor={"420a0a"}
+          />
 
           {/* Budgeting */}
-          <div className="w-1/2">
-            <div className="bg-red-200 rounded-md p-2 mb-2">
-              <p className="text-red-600 font-semibold">Budget Information</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the budget during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Budgeting"
+            description="Stay informed about the budget during your trip"
+            icon={faSackDollar}
+            iconColor={"42bc32"}
+            bgColor={"bg-red-200"}
+            textColor={"text-red-600"}
+          />
         </div>
 
         {/* ROW 3 */}
         <div className="w-full px-2 mb-4 flex gap-2">
           {/* Upload Photos */}
-          <div className="w-1/2">
-            <div className="bg-blue-200 rounded-md p-2 mb-2">
-              <p className="text-blue-600 font-semibold">Upload Photos</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the photos during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Upload Photos"
+            description="Stay informed about the photos during your trip"
+            icon={faImage}
+            iconColor={"7d24c6"}
+          />
 
           {/* Notes */}
-          <div className="w-1/2">
-            <div className="bg-red-200 rounded-md p-2 mb-2">
-              <p className="text-red-600 font-semibold">Notes</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the notes during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Notes"
+            description="Keep your notes during your trip"
+            icon={faClipboard}
+            iconColor={"222222"}
+            bgColor={"bg-red-200"}
+            textColor={"text-red-600"}
+          />
         </div>
 
         {/* ROW 4 */}
         <div className="w-full px-2 mb-4 flex gap-2">
           {/* Travel Documents */}
-          <div className="w-1/2">
-            <div className="bg-blue-200 rounded-md p-2 mb-2">
-              <p className="text-blue-600 font-semibold">Travel Documents</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the travel documents during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Travel Documents"
+            description="Keep copies of your travel documents"
+            icon={faPassport}
+            iconColor={"136aa0"}
+          />
 
           {/* Itineraries */}
-          <div className="w-1/2">
-            <div className="bg-red-200 rounded-md p-2 mb-2">
-              <p className="text-red-600 font-semibold">Itineraries</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the itineraries during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Itineraries"
+            description="Keep your itineraries during your trip"
+            icon={faCalendarDays}
+            iconColor={"f2f2f2"}
+            bgColor={"bg-red-200"}
+            textColor={"text-red-600"}
+          />
         </div>
 
         {/* ROW 5 */}
         <div className="w-full px-2 mb-4 flex gap-2">
-          {/* Places to Visit */}
-          <div className="w-1/2">
-            <div className="bg-blue-200 rounded-md p-2 mb-2">
-              <p className="text-blue-600 font-semibold">Places to Visit</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the places to visit during your trip.
-              </p>
-            </div>
-          </div>
+          {/* Crowd Sourced */}
+          <Card
+            title="User's Favorites"
+            description="Find what locals recommend (crowd sourced)"
+            icon={faHandHolding}
+            iconColor={"511f50"}
+          />
 
           {/* Friends */}
-          <div className="w-1/2">
-            <div className="bg-red-200 rounded-md p-2 mb-2">
-              <p className="text-red-600 font-semibold">Friends</p>
-              <p className="text-sm text-zinc-600">
-                Stay informed about the friends during your trip.
-              </p>
-            </div>
-          </div>
+          <Card
+            title="Friends"
+            description="Find friends during your trip"
+            icon={faFaceSmileWink}
+            iconColor={"921c3f"}
+            bgColor={"bg-red-200"}
+            textColor={"text-red-600"}
+          />
         </div>
 
         {/* View Details Link */}

@@ -5,7 +5,8 @@ import { collection, addDoc, doc, setDoc, getDoc, getDocs } from "firebase/fires
 
 export default function AddNewTrip() {
   const { addNewTrip } = useTripContext();
-  const [destination, setDestination] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -23,7 +24,8 @@ export default function AddNewTrip() {
     // Create a new trip object with the form data
     const newTrip = {
       id: Date.now(),
-      destination,
+      city: city,
+      country: country,
       startDate,
       endDate,
     };
@@ -48,26 +50,44 @@ export default function AddNewTrip() {
     addNewTrip(newTrip);
 
     // Clear the form fields after submission
-    setDestination("");
+    setCity("");
+    setCountry("");
     setStartDate("");
     setEndDate("");
   };
 
   return (
-    <div className="bg-white rounded p-4 mb-4">
+    <div className="bg-white rounded p-4 mb-4 text-zinc-800">
       <h2 className="text-lg font-semibold mb-2">Add New Trip</h2>
       <form onSubmit={handleSubmit}>
+        {/* CITY INPUT  */}
         <div className="mb-2">
-          <label htmlFor="destination" className="block text-sm font-medium">
-            Destination
+          <label htmlFor="city" className="block text-sm font-medium">
+            City
           </label>
           <input
             type="text"
-            id="destination"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            id="city"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className="w-full p-2 border rounded-md placeholder:text-red-200"
             required
+            placeholder="Enter a City"
+          />
+        </div>
+          {/* COUNTRY INPUT  */}
+        <div className="mb-2">
+          <label htmlFor="country" className="block text-sm font-medium">
+            Country
+          </label>
+          <input
+            type="text"
+            id="country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            className="w-full p-2 border rounded-md placeholder:text-red-200"
+            required
+            placeholder="Enter a Country"
           />
         </div>
         <div className="mb-2">
@@ -79,7 +99,7 @@ export default function AddNewTrip() {
             id="startDate"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md text-red-600"
             required
           />
         </div>
@@ -92,7 +112,7 @@ export default function AddNewTrip() {
             id="endDate"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md text-red-600"
             required
           />
         </div>
