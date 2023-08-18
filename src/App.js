@@ -1,14 +1,16 @@
+import { useState } from "react";
 import ListContainer from "./components/Lists/ListContainer";
 import Header from "./components/Home/Header";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import AddTrip from "./pages/AddTrip";
 import Dashboard from "./pages/Dashboard";
-import TripCard from "./pages/TripCards";
+import TripCards from "./pages/TripCards";
 import Upcoming from "./pages/Upcoming";
 import PastTrip from "./pages/PastTrips";
 import { AuthContextProvider } from "./context/AuthContext";
 import { TripProvider } from "./context/TripContext";
+import { PackingListProvider } from "./context/PackingListContext";
 import { Route, Routes } from "react-router-dom";
 import Protected from "./components/Protected";
 
@@ -16,6 +18,7 @@ function App() {
   return (
     <AuthContextProvider>
       <TripProvider>
+        <PackingListProvider>
         <div className="bg-zinc-800 text-zinc-200 font-mono min-h-screen">
           <Header />
           <Routes>
@@ -57,12 +60,13 @@ function App() {
               path="/dashboard/trip/:tripId"
               element={
                 <Protected>
-                  <TripCard />
+                  <TripCards />
                 </Protected>
               }
             />
           </Routes>
         </div>
+        </PackingListProvider>
       </TripProvider>
     </AuthContextProvider>
   );

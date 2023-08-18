@@ -1,32 +1,52 @@
-import React from 'react'
+import { useState, useEffect } from "react";
+import { usePackingList } from "../../context/PackingListContext";
+import { v4 as uuidv4 } from "uuid";
 
-function ListInput({inputValue, setInputValue, list, setList}) {
-  const handleClick = (e) =>{
-        if (inputValue.trim() !== "") {
-          setList([...list, inputValue]);
-          setInputValue("");
-        }
-  }
+export default function ListInput() {
+    const { setPackingList } = usePackingList();
+    const [inputValue, setInputValue] = useState("");
+    const [quantityValue, setQuantityValue] = useState(1);
 
-  const handleKeyDown = (e) =>{
-    if(e.key === 'Enter'){
-      handleClick(e)
+    const handleClick = () => {
+      if (inputValue.trim() !== "") {
+        setPackingList((prevList) => [
+          ...prevList,
+          { id: uuidv4(), quantity: quantityValue, text: inputValue },
+        ]);
+        setInputValue("");
+      }
+    };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleClick(e);
     }
-  }
+  };
 
   const handleChange = (e) => {
-    setInputValue(e.target.value)
+    setInputValue(e.target.value);
+  };
+
+  const handleQuantityChange = (e) => {
+    setQuantityValue(e.target.value);
   }
 
   return (
     <div className="flex gap-3 mb-5">
       <input
+        type="text"
         name="specs"
         value={inputValue}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        type="text"
         placeholder="Add a task..."
+        className="px-3 py-1 rounded text-blue-950"
+      />
+      <input
+        type="number"
+        value={quantityValue}
+        onChange={handleQuantityChange}
+        placeholder="Quantity"
         className="px-3 py-1 rounded text-blue-950"
       />
       <button
@@ -35,13 +55,13 @@ function ListInput({inputValue, setInputValue, list, setList}) {
       >
         Add
       </button>
-      <button 
-      onClick={() => setList([])}
-      className="px-3 py-1 bg-red-800 text-white rounded hover:bg-red-600">
+      <button
+        onClick={() => setPackingList([])}
+        className="px-3 py-1 bg-red-800 text-white rounded hover:bg-red-600"
+      >
         Clear All
       </button>
     </div>
   );
 }
 
-export default ListInput
