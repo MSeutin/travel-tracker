@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { usePackingList } from "../../context/PackingListContext";
 
-export default function PackingListPopup() {
+export default function ViewPackingList() {
   const { packingList } = usePackingList();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 

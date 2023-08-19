@@ -2,19 +2,30 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTripContext } from "../context/TripContext";
 import { db, auth } from "../config/firebase";
-import { collection, addDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 import DashboardNav from "../components/Dashboard/DashboardNav";
-import Card from "../components/TripCards/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faSun, faCoins, faCartFlatbedSuitcase, faSackDollar, faImage, faClipboard, faPassport, faCalendarDays, faHandHolding, faFaceSmileWink } from "@fortawesome/free-solid-svg-icons";
-import PackingListPopup from "../components/TripCards/PackingListPopup";
+import {
+  faTrashCan,
+  faSun,
+  faCoins,
+  faCartFlatbedSuitcase,
+  faSackDollar,
+  faImage,
+  faClipboard,
+  faPassport,
+  faCalendarDays,
+  faHandHolding,
+  faFaceSmileWink,
+} from "@fortawesome/free-solid-svg-icons";
+import Card from "../components/TripCards/Card";
+import { ViewPackingList, EditPackingList } from "../components/PackingLists";
 
 export default function TripCards() {
   //   const { id, destination, startDate, endDate } = trip;
   const { tripId } = useParams();
   const { trips, addNewTrip, deleteTrip } = useTripContext();
   const [currentTrip, setCurrentTrip] = useState(null);
-
 
   let navigate = useNavigate();
 
@@ -135,7 +146,8 @@ export default function TripCards() {
             description="Stay informed about the packing list during your trip"
             icon={faCartFlatbedSuitcase}
             iconColor={"420a0a"}
-            popupContent={<PackingListPopup />}
+            viewContent={<ViewPackingList />}
+            editContent={<EditPackingList />}
           />
 
           {/* Budgeting */}

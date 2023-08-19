@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Card({ title, description, hover, button, icon, bgColor, textColor, iconColor, onViewClick, onEditClick, popupContent }) {
+export default function Card({ title, description, hover, button, icon, bgColor, textColor, iconColor, onViewClick, onEditClick, viewContent, editContent }) {
   const cardStyles = {
     bgColor: bgColor || "bg-blue-200",
     textColor: textColor || "text-blue-600",
@@ -19,18 +19,12 @@ export default function Card({ title, description, hover, button, icon, bgColor,
           {title}
         </p>
         <p className="text-sm text-zinc-600">{description}</p>
+        <div className="flex justify-end">
         {/* View Button  */}
-        {popupContent && popupContent}
-
+        {viewContent && viewContent}
         {/* Edit Button */}
-        {onEditClick && (
-          <button
-            className="bg-transparent border-2  px-2 py-1 rounded ml-3 hover:bg-blue-200 hover:text-blue-600 transition-colors"
-            onClick={onEditClick}
-          >
-            Edit
-          </button>
-        )}
+        {editContent && editContent}
+        </div>
       </div>
     </div>
   );

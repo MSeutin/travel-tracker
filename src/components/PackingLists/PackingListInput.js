@@ -2,20 +2,20 @@ import { useState, useEffect } from "react";
 import { usePackingList } from "../../context/PackingListContext";
 import { v4 as uuidv4 } from "uuid";
 
-export default function ListInput() {
-    const { setPackingList } = usePackingList();
-    const [inputValue, setInputValue] = useState("");
-    const [quantityValue, setQuantityValue] = useState(1);
+export default function PackingListInput() {
+  const { setPackingList } = usePackingList();
+  const [inputValue, setInputValue] = useState("");
+  const [quantityValue, setQuantityValue] = useState(1);
 
-    const handleClick = () => {
-      if (inputValue.trim() !== "") {
-        setPackingList((prevList) => [
-          ...prevList,
-          { id: uuidv4(), quantity: quantityValue, text: inputValue },
-        ]);
-        setInputValue("");
-      }
-    };
+  const handleClick = () => {
+    if (inputValue.trim() !== "") {
+      setPackingList((prevList) => [
+        ...prevList,
+        { id: uuidv4(), quantity: quantityValue, text: inputValue },
+      ]);
+      setInputValue("");
+    }
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -29,10 +29,10 @@ export default function ListInput() {
 
   const handleQuantityChange = (e) => {
     setQuantityValue(e.target.value);
-  }
+  };
 
   return (
-    <div className="flex gap-3 mb-5">
+    <div className="flex gap-3 mt-4">
       <input
         type="text"
         name="specs"
@@ -64,4 +64,3 @@ export default function ListInput() {
     </div>
   );
 }
-
