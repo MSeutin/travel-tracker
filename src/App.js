@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ListContainer from "./components/PackingLists/PackingListContainer";
+import PackingListContainer from "./components/PackingLists/PackingListContainer";
 import Header from "./components/Home/Header";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
@@ -68,7 +68,7 @@ function App() {
                 path="/dashboard/packing-list"
                 element={
                   <Protected>
-                    <ListContainer />
+                    <PackingListContainer />
                   </Protected>
                 }
               />
