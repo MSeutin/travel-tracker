@@ -16,6 +16,7 @@ export default function PackingListInput({ onPackingListUpdate }) {
           id: uuidv4(),
           quantity: quantityValue,
           text: inputValue,
+          createdAt: Date.now(),
         };
 
         // Call the callback function with the new item

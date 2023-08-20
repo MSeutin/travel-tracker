@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { db, auth } from "../../config/firebase";
-import { collection, doc, setDoc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { collection, doc, setDoc, onSnapshot, deleteDoc, query, orderBy } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { usePackingList } from "../../context/PackingListContext";
 import PackingListInput from "./PackingListInput";
@@ -19,7 +19,8 @@ export default function PackingListContainer() {
     const packingListsCollection = collection(userRef, "packingLists");
 
     // Set up the snapshot listener
-    const unsubscribe = onSnapshot(packingListsCollection, (querySnapshot) => {
+    const unsubscribe = onSnapshot(
+      query(packingListsCollection,orderBy("createdAt", "asc")), (querySnapshot) => {
       const updatedPackingList = [];
       querySnapshot.forEach((doc) => {
         updatedPackingList.push(doc.data());

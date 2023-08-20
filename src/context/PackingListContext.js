@@ -8,11 +8,13 @@ let minimalPackingList = [
     id: uuidv4(),
     quantity: 1,
     text: "t-shirt",
+    createdAt: Date.now(),
   },
   {
     id: uuidv4(),
     quantity: 2,
     text: "toothbrush",
+    createdAt: Date.now(),
   },
 ];
 

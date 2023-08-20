@@ -33,7 +33,7 @@ export default function PackingListItem() {
       </div>
       {packingList.map((item) => {
         return (
-          <div
+          <diva
             key={item.id}
             className="flex gap-5 justify-between items-center bg-zinc-800 hover:bg-zinc-100 hover:text-zinc-800 p-2 rounded "
           >
@@ -49,7 +49,7 @@ export default function PackingListItem() {
                 />
               </button>
             </div>
-          </div>
+          </diva>
         );
       })}
     </div>
