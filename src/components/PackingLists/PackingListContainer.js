@@ -1,11 +1,38 @@
-import React from "react";
+import { useEffect } from "react";
+import { db, auth } from "../../config/firebase";
+import { collection, doc, setDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { usePackingList } from "../../context/PackingListContext";
 import PackingListInput from "./PackingListInput";
 import PackingListItem from "./PackingListItem";
 
 export default function PackingListContainer() {
-  const { packingList } = usePackingList();
+  const { packingList, setPackingList } = usePackingList();
+
+  useEffect(() => {
+    // Get currently logged in user
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const usersCollection = collection(db, "users");
+    const userRef = doc(usersCollection, user.uid);
+    const packingListsCollection = collection(userRef, "packingLists");
+
+    // Set up the snapshot listener
+    const unsubscribe = onSnapshot(packingListsCollection, (querySnapshot) => {
+      const updatedPackingList = [];
+      querySnapshot.forEach((doc) => {
+        updatedPackingList.push(doc.data());
+      });
+      setPackingList(updatedPackingList);
+    });
+
+       return () => {
+         // Unsubscribe from the listener when component unmounts
+         unsubscribe();
+       };
+
+  },[setPackingList])
 
   const nav = useNavigate();
   const handleGoBack = () => {

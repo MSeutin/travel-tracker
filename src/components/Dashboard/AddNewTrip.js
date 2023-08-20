@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTripContext } from "../../context/TripContext";
 import { db, auth } from "../../config/firebase";
-import { collection, addDoc, doc, setDoc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 export default function AddNewTrip() {
   const { addNewTrip } = useTripContext();

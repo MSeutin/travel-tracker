@@ -1,11 +1,27 @@
 import { usePackingList } from "../../context/PackingListContext";
+import { db, auth } from "../../config/firebase";
+import { doc, deleteDoc, collection } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export default function PackingListItem() {
   const { packingList, setPackingList } = usePackingList();
 
-  const handleClick = (id) => {
+  const handleClick = async (id) => {
+    // Remove item from the database
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+      const usersCollection = collection(db, "users");
+      const userRef = doc(usersCollection, user.uid);
+      const packingListDoc = doc(userRef, "packingLists", id);
+      await deleteDoc(packingListDoc);
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+    
+    // remove item from the local packing list state
     const newList = packingList.filter((item) => item.id !== id);
     setPackingList(newList);
   };

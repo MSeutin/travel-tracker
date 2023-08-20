@@ -11,40 +11,40 @@ export default function UpcomingTrips() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-        console.log("UpcomingTrips component mounted");
-        console.log("Trips from context:", trips);
-    const fetchTrips = async () => {
-        const user = auth.currentUser;
-        if (!user) return;
-        const tripsRef = collection(db, "users", user.uid, "trips");
-        const tripsQuery = query(tripsRef)
+    console.log("UpcomingTrips component mounted");
 
-        // try catch
-        try {
-          const querySnapshot = await getDocs(tripsQuery);
-          const fetchedTrips = querySnapshot.docs.map((doc) => doc.data());
+    const user = auth.currentUser;
+    if (!user) return;
 
-          // Filter out existing trips from fetched trips
-          const newTrips = fetchedTrips.filter((newTrip) =>
-            trips.every((existingTrip) => existingTrip.id !== newTrip.id)
-          );
+    const tripsRef = collection(db, "users", user.uid, "trips");
+    const tripsQuery = query(tripsRef);
 
-          // Add only new trips to the state
-          newTrips.forEach((trip) => {
-            addNewTrip(trip);
-          });
+    // Set up the snapshot listener
+    const unsubscribe = onSnapshot(tripsQuery, (querySnapshot) => {
+      const updatedTrips = [];
+      querySnapshot.forEach((doc) => {
+        updatedTrips.push(doc.data());
+      });
 
-          setLoading(false);
-        } catch(error) {
-          console.log(error);
-        }
-    }
-    
-    // Call the fetchTrips function
-    fetchTrips();
-  },[trips]);
+      // Filter out existing trips from fetched trips
+      const newTrips = updatedTrips.filter((newTrip) =>
+        trips.every((existingTrip) => existingTrip.id !== newTrip.id)
+      );
 
-  console.log("After fetchTrips, trips:", trips);
+      // Add only new trips to the state
+      newTrips.forEach((trip) => {
+        addNewTrip(trip);
+      });
+
+      setLoading(false);
+    });
+
+    return () => {
+      // Unsubscribe from the listener when component unmounts
+      unsubscribe();
+    };
+  }, [addNewTrip]);
+
 
   return (
     <div className="mb-4">
