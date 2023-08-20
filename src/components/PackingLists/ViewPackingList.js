@@ -39,6 +39,10 @@ export default function ViewPackingList() {
             className="bg-white text-zinc-800 p-4 rounded shadow-md relative"
             style={{ zIndex: 2000 }}
           >
+
+            { packingList.length === 0 ? (
+              <p className="text-center text-gray-600">Packing list is empty.</p>
+            ) : (
             <div className="grid gap-2">
               {packingList.map((item) => (
                 <div
@@ -50,6 +54,7 @@ export default function ViewPackingList() {
                 </div>
               ))}
             </div>
+            )}
           </div>
         </div>
       )}

@@ -4,54 +4,32 @@ import { db, auth } from "../../config/firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
-export default function PackingListInput() {
-  const { setPackingList } = usePackingList();
+export default function PackingListInput({ onPackingListUpdate }) {
+  const { packingList, setPackingList } = usePackingList();
   const [inputValue, setInputValue] = useState("");
   const [quantityValue, setQuantityValue] = useState(1);
 
-  const handleClick = async () => {
-    // get currently logged in user
-    const user = auth.currentUser;
-    
-    // if no user is logged in, then return
-    if (!user) return;
 
+  const handleClick = () => {
     if (inputValue.trim() !== "") {
+        const newPackingListItem = {
+          id: uuidv4(),
+          quantity: quantityValue,
+          text: inputValue,
+        };
 
-      // create a new packing list item object
-      const newPackingListItem = {
-        id: uuidv4(),
-        quantity: quantityValue,
-        text: inputValue,
+        // Call the callback function with the new item
+        onPackingListUpdate(newPackingListItem);
+
+        // Clear input fields
+        setInputValue("");
+        setQuantityValue(1);
       }
-
-      // reference the "users" collection
-      const usersCollection = collection(db, "users");
-
-      // reference the "packing lists" subcollection under the user's document
-      const userRef = doc(usersCollection, user.uid);
-      const packingListsCollection = collection(userRef, "packingLists");
-
-      // add the new packing list item to the packing list
-      try{
-        const docRef = await setDoc(doc(packingListsCollection, `${newPackingListItem.id}`), newPackingListItem);
-        console.log("Document written with ID: ", docRef.id);
-      } catch (error) {
-        console.error("Error adding document: ", error);
-      }
-
-      // add the new packing list item to the packing list
-      setPackingList((prevList) => [
-        ...prevList,
-        newPackingListItem,
-      ]);
-      setInputValue("");
-    }
-  };
+    };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      handleClick(e);
+      handleClick();
     }
   };
 

@@ -34,6 +34,23 @@ export default function PackingListContainer() {
 
   },[setPackingList])
 
+     const handlePackingListUpdate = async (newItem) => {
+       try {
+         // Update the packing list in the database (or your preferred data source)
+         const user = auth.currentUser;
+         if (!user) return;
+
+         const usersCollection = collection(db, "users");
+         const userRef = doc(usersCollection, user.uid);
+         const packingListsCollection = collection(userRef, "packingLists");
+
+         // Add the new packing list item to the database
+         await setDoc(doc(packingListsCollection, `${newItem.id}`), newItem);
+       } catch (error) {
+         console.error("Error adding document: ", error);
+       }
+     };
+
   const nav = useNavigate();
   const handleGoBack = () => {
     nav(-1)
@@ -52,7 +69,7 @@ export default function PackingListContainer() {
               X
               </button>
           </div>
-          <PackingListInput />
+          <PackingListInput onPackingListUpdate={handlePackingListUpdate} />
           <PackingListItem />
         </div>
       </div>
