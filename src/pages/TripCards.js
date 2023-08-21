@@ -32,6 +32,17 @@ export default function TripCards() {
   const [hours, setHours] = useState(null);
   const [minutes, setMinutes] = useState(null);
 
+  // forecast dummy data - will use api soon
+  const weatherForecast = [
+    { day: "Monday", icon: "☀️", temperature: "25°C" },
+    { day: "Tuesday", icon: "⛅️", temperature: "23°C" },
+    { day: "Wednesday", icon: "🌦️", temperature: "20°C" },
+    { day: "Thursday", icon: "🌧️", temperature: "18°C" },
+    { day: "Friday", icon: "🌦️", temperature: "22°C" },
+    { day: "Saturday", icon: "☀️", temperature: "24°C" },
+    { day: "Sunday", icon: "⛅️", temperature: "23°C" },
+  ];
+
   let navigate = useNavigate();
 
   // Function to delete the trip from the database
@@ -85,7 +96,7 @@ export default function TripCards() {
         // Implement time API call using axios or another library
         // Update the 'time' state with fetched data
         // api key
-        const API_KEY = "393cd78811c14a2689f79c238488640f";
+        const API_KEY = process.env.REACT_APP_IPGEOLOCATION_API_KEY;
         const lat = currentTrip.latitude;
         const lon = currentTrip.longitude;
         const url = `https://api.ipgeolocation.io/timezone?apiKey=${API_KEY}&lat=${lat}&long=${lon}`;
@@ -182,6 +193,7 @@ export default function TripCards() {
             description="Stay informed about the weather during your trip"
             icon={faSun}
             iconColor={"f5f83a"}
+            weatherForecast={weatherForecast}
           />
 
           {/* Currency Exchange Information */}
