@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTripContext } from "../../context/TripContext";
 import { db, auth } from "../../config/firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
+import axios from "axios";
 
 export default function AddNewTrip() {
   const { addNewTrip } = useTripContext();
@@ -21,14 +22,36 @@ export default function AddNewTrip() {
     // if no user is logged in
     if (!user) return;
 
-    // Create a new trip object with the form data
+    // use google maps geocoding service to get the latitude and longitude
+    // TODO: hide the API key
+    const googleMapsApiKey = "AIzaSyBZZvbweRroSgEiOZS-AAzrqWQW6aIebvs";
+
+    // use the google maps geocoding service to get the latitude and longitude
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${city},${country}&key=${googleMapsApiKey}`;
+
+    // Declare lat and lng variables outside the try block
+    let location;
+
+    // error handling
+    try {
+      const response = await axios.get(url);
+      location = response.data.results[0].geometry.location;
+    } catch (error) {
+      console.error("Error fetching geolocation data:", error.message);
+    }
+
+    // Now you can use lat and lng in your newTrip object
     const newTrip = {
       id: Date.now(),
       city: city,
       country: country,
       startDate,
       endDate,
+      latitude: location.lat,
+      longitude: location.lng,
     };
+
+    console.log(`newTrip:`, newTrip);
 
     // Reference to the "users" collection
     const usersCollection = collection(db, "users");
@@ -39,8 +62,11 @@ export default function AddNewTrip() {
 
     // Add the new trip to the "trips" collection
     try {
-    //   const docRef = await addDoc(tripsCollection, newTrip);
-    const docRef = await setDoc(doc(tripsCollection, `${newTrip.id}`), newTrip);
+      //   const docRef = await addDoc(tripsCollection, newTrip);
+      const docRef = await setDoc(
+        doc(tripsCollection, `${newTrip.id}`),
+        newTrip
+      );
       console.log("Document written with ID: ", docRef.id);
     } catch (error) {
       console.error("Error adding document: ", error);
