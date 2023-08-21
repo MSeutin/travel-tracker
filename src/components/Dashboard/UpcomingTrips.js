@@ -6,13 +6,10 @@ import { collection, query, where, getDocs, onSnapshot } from "firebase/firestor
 
 export default function UpcomingTrips() {
   // get trips from context
-  const { trips, addNewTrip } = useTripContext();
-  console.log("Context trips:", trips);
+  const { trips, addTripToContext } = useTripContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("UpcomingTrips component mounted");
-
     const user = auth.currentUser;
     if (!user) return;
 
@@ -33,7 +30,7 @@ export default function UpcomingTrips() {
 
       // Add only new trips to the state
       newTrips.forEach((trip) => {
-        addNewTrip(trip);
+        addTripToContext(trip);
       });
 
       setLoading(false);
@@ -43,7 +40,7 @@ export default function UpcomingTrips() {
       // Unsubscribe from the listener when component unmounts
       unsubscribe();
     };
-  }, [addNewTrip]);
+  }, [addTripToContext, trips]);
 
 
   return (

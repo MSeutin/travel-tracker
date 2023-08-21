@@ -5,7 +5,7 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import axios from "axios";
 
 export default function AddNewTrip() {
-  const { addNewTrip } = useTripContext();
+  const { addTripToContext } = useTripContext();
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -51,8 +51,6 @@ export default function AddNewTrip() {
       longitude: location.lng,
     };
 
-    console.log(`newTrip:`, newTrip);
-
     // Reference to the "users" collection
     const usersCollection = collection(db, "users");
 
@@ -67,13 +65,12 @@ export default function AddNewTrip() {
         doc(tripsCollection, `${newTrip.id}`),
         newTrip
       );
-      console.log("Document written with ID: ", docRef.id);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
 
     // Call the addNewTrip function with the new trip data
-    addNewTrip(newTrip);
+    addTripToContext(newTrip);
 
     // Clear the form fields after submission
     setCity("");

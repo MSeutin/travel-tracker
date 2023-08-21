@@ -20,12 +20,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Card from "../components/TripCards/Card";
 import { ViewPackingList, EditPackingList } from "../components/PackingLists";
+import axios from "axios";
 
+// TRIP CARDS COMPONENT
 export default function TripCards() {
-  //   const { id, destination, startDate, endDate } = trip;
   const { tripId } = useParams();
-  const { trips, addNewTrip, deleteTrip } = useTripContext();
+  const { trips, addTripToContext, deleteTrip } = useTripContext();
   const [currentTrip, setCurrentTrip] = useState(null);
+  const [weather, setWeather] = useState(null);
+  const [time, setTime] = useState(null);
+  const [hours, setHours] = useState(null);
+  const [minutes, setMinutes] = useState(null);
 
   let navigate = useNavigate();
 
@@ -61,19 +66,71 @@ export default function TripCards() {
     }
   };
 
+  // WEATHER FETCHING CODE
+  const fetchWeather = async () => {
+    // fecth weather logic
+    try {
+      // Implement weather API call using axios or another library
+      // Update the 'weather' state with fetched data
+    } catch (error) {
+      console.error("Error fetching weather:", error);
+    }
+  };
+
+  // TIME FETCHING CODE
+  const fetchTime = async () => {
+    // fecth time logic
+    try {
+      if (currentTrip) {
+        // Implement time API call using axios or another library
+        // Update the 'time' state with fetched data
+        // api key
+        const API_KEY = "393cd78811c14a2689f79c238488640f";
+        const lat = currentTrip.latitude;
+        const lon = currentTrip.longitude;
+        const url = `https://api.ipgeolocation.io/timezone?apiKey=${API_KEY}&lat=${lat}&long=${lon}`;
+        const response = await axios.get(url, {
+          headers: {
+            Accept: "application/json", // Set the 'accept' header to JSON
+          },
+        });
+        const timeArray = response.data.time_24.split(":");
+        const hours = timeArray[0];
+        const minutes = timeArray[1];
+        setHours(hours);
+        setMinutes(minutes);
+      }
+    } catch (error) {
+      console.error("Error fetching time:", error);
+    }
+  };
+
   useEffect(() => {
     // Find the trip with the matching tripId in the trips array
     const foundTrip = trips.find((trip) => trip.id === parseInt(tripId));
 
     // Update the currentTrip state with the found trip
     setCurrentTrip(foundTrip);
-  }, [trips, tripId]);
+
+    // Update the currentTrip state with the found trip
+    if (foundTrip) {
+      fetchTime();
+      // Update time every 60 seconds
+      const updateTimeInterval = setInterval(fetchTime, 60000);
+
+      // Clean up interval when component unmounts or trip changes
+      return () => {
+        clearInterval(updateTimeInterval);
+      };
+    }
+  }, [currentTrip, trips, tripId]);
 
   if (!currentTrip) {
     return <div>Loading...</div>;
   }
 
-  const { city, country, startDate, endDate } = currentTrip;
+  const { city, country, startDate, endDate } =
+    currentTrip;
 
   // RETURN
   return (
@@ -99,8 +156,8 @@ export default function TripCards() {
               </button>
             </h3>
             {/* Local Time */}
-            <span className="text-zinc-400 ml-5">
-              {new Date().toLocaleTimeString()}
+            <span className="text-xl font-bold text-white bg-indigo-600 p-2 rounded-md ml-5">
+              {hours}<span className="animate-pulse">:</span>{minutes}
             </span>
           </div>
           {/* Dates */}

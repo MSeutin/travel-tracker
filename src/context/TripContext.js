@@ -10,17 +10,18 @@ export function useTripContext() {
 export function TripProvider({ children }) {
   const [trips, setTrips] = useState([]);
 
-  const addNewTrip = (newTrip) => {
-    setTrips([...trips, newTrip]);
+  const addTripToContext= (newTrip) => {
+    setTrips((prevTrips) => [...prevTrips, newTrip]);
   };
 
   const deleteTrip = (tripId) => {
-    setTrips(trips.filter((trip) => trip.id !== tripId));
+    setTrips((prevTrips) => prevTrips.filter((trip) => trip.id !== tripId));
+
   };
 
   const value = {
     trips,
-    addNewTrip,
+    addTripToContext,
     deleteTrip,
   };
 
