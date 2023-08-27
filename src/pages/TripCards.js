@@ -21,6 +21,7 @@ import {
 import Card from "../components/TripCards/Card";
 import { ViewPackingList, EditPackingList } from "../components/PackingLists";
 import axios from "axios";
+import { fetchTime } from "../utils/timeApi";
 
 // TRIP CARDS COMPONENT
 export default function TripCards() {
@@ -88,34 +89,6 @@ export default function TripCards() {
     }
   };
 
-  // TIME FETCHING CODE
-  const fetchTime = async () => {
-    // fecth time logic
-    try {
-      if (currentTrip) {
-        // Implement time API call using axios or another library
-        // Update the 'time' state with fetched data
-        // api key
-        const API_KEY = process.env.REACT_APP_IPGEOLOCATION_API_KEY;
-        const lat = currentTrip.latitude;
-        const lon = currentTrip.longitude;
-        const url = `https://api.ipgeolocation.io/timezone?apiKey=${API_KEY}&lat=${lat}&long=${lon}`;
-        const response = await axios.get(url, {
-          headers: {
-            Accept: "application/json", // Set the 'accept' header to JSON
-          },
-        });
-        const timeArray = response.data.time_24.split(":");
-        const hours = timeArray[0];
-        const minutes = timeArray[1];
-        setHours(hours);
-        setMinutes(minutes);
-      }
-    } catch (error) {
-      console.error("Error fetching time:", error);
-    }
-  };
-
   useEffect(() => {
     // Find the trip with the matching tripId in the trips array
     const foundTrip = trips.find((trip) => trip.id === parseInt(tripId));
@@ -124,16 +97,20 @@ export default function TripCards() {
     setCurrentTrip(foundTrip);
 
     // Update the currentTrip state with the found trip
-    if (foundTrip) {
-      fetchTime();
-      // Update time every 60 seconds
-      const updateTimeInterval = setInterval(fetchTime, 60000);
+      if (foundTrip) {
+        const updateTimeInterval = setInterval(async () => {
+          const { hours, minutes } = await fetchTime(
+            foundTrip.latitude,
+            foundTrip.longitude
+          );
+          setHours(hours);
+          setMinutes(minutes);
+        }, 60000);
 
-      // Clean up interval when component unmounts or trip changes
-      return () => {
-        clearInterval(updateTimeInterval);
-      };
-    }
+        return () => {
+          clearInterval(updateTimeInterval);
+        };
+      }
   }, [currentTrip, trips, tripId]);
 
   if (!currentTrip) {
@@ -168,7 +145,9 @@ export default function TripCards() {
             </h3>
             {/* Local Time */}
             <span className="text-xl font-bold text-white bg-indigo-600 p-2 rounded-md ml-5">
-              {hours}<span className="animate-pulse">:</span>{minutes}
+              {hours}
+              <span className="animate-pulse">:</span>
+              {minutes}
             </span>
           </div>
           {/* Dates */}
@@ -186,7 +165,7 @@ export default function TripCards() {
 
         {/* FEATURES */}
         {/* ROW 1 */}
-        <div className="w-full px-2 mb-4 flex gap-2">
+        <div className="w-full px-2 mb-4 flex gap-2 flex-col md:flex-row">
           {/* Weather Information */}
           <Card
             title="Weather Information"
