@@ -7,7 +7,6 @@ import DashboardNav from "../components/Dashboard/DashboardNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrashCan,
-  faSun,
   faCoins,
   faCartFlatbedSuitcase,
   faSackDollar,
@@ -20,29 +19,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Card from "../components/TripCards/Card";
 import { ViewPackingList, EditPackingList } from "../components/PackingLists";
-import axios from "axios";
 import { fetchTime } from "../utils/timeApi";
+import WeatherCard from "../components/TripCards/WeatherCard";
 
 // TRIP CARDS COMPONENT
 export default function TripCards() {
   const { tripId } = useParams();
   const { trips, addTripToContext, deleteTrip } = useTripContext();
   const [currentTrip, setCurrentTrip] = useState(null);
-  const [weather, setWeather] = useState(null);
-  const [time, setTime] = useState(null);
   const [hours, setHours] = useState(null);
   const [minutes, setMinutes] = useState(null);
-
-  // forecast dummy data - will use api soon
-  const weatherForecast = [
-    { day: "Monday", icon: "☀️", temperature: "25°C" },
-    { day: "Tuesday", icon: "⛅️", temperature: "23°C" },
-    { day: "Wednesday", icon: "🌦️", temperature: "20°C" },
-    { day: "Thursday", icon: "🌧️", temperature: "18°C" },
-    { day: "Friday", icon: "🌦️", temperature: "22°C" },
-    { day: "Saturday", icon: "☀️", temperature: "24°C" },
-    { day: "Sunday", icon: "⛅️", temperature: "23°C" },
-  ];
 
   let navigate = useNavigate();
 
@@ -78,17 +64,7 @@ export default function TripCards() {
     }
   };
 
-  // WEATHER FETCHING CODE
-  const fetchWeather = async () => {
-    // fecth weather logic
-    try {
-      // Implement weather API call using axios or another library
-      // Update the 'weather' state with fetched data
-    } catch (error) {
-      console.error("Error fetching weather:", error);
-    }
-  };
-
+  // TIME FETCHING CODE
   useEffect(() => {
     // Find the trip with the matching tripId in the trips array
     const foundTrip = trips.find((trip) => trip.id === parseInt(tripId));
@@ -97,20 +73,26 @@ export default function TripCards() {
     setCurrentTrip(foundTrip);
 
     // Update the currentTrip state with the found trip
-      if (foundTrip) {
-        const updateTimeInterval = setInterval(async () => {
-          const { hours, minutes } = await fetchTime(
-            foundTrip.latitude,
-            foundTrip.longitude
-          );
-          setHours(hours);
-          setMinutes(minutes);
-        }, 60000);
+if (foundTrip) {
+    const fetchAndUpdateTime = async () => {
+      const { hours, minutes } = await fetchTime(
+        foundTrip.latitude,
+        foundTrip.longitude
+      );
+      setHours(hours);
+      setMinutes(minutes);
+    };
 
-        return () => {
-          clearInterval(updateTimeInterval);
-        };
-      }
+    // Fetch time immediately
+    fetchAndUpdateTime();
+
+    // Set up interval for subsequent updates
+    const updateTimeInterval = setInterval(fetchAndUpdateTime, 60000);
+
+    return () => {
+      clearInterval(updateTimeInterval);
+    };
+  }
   }, [currentTrip, trips, tripId]);
 
   if (!currentTrip) {
@@ -167,15 +149,9 @@ export default function TripCards() {
         {/* ROW 1 */}
         <div className="w-full px-2 mb-4 flex gap-2 flex-col md:flex-row">
           {/* Weather Information */}
-          <Card
-            title="Weather Information"
-            description="Stay informed about the weather during your trip"
-            icon={faSun}
-            iconColor={"f5f83a"}
-            weatherForecast={weatherForecast}
-          />
+          <WeatherCard currentTrip={currentTrip} />
 
-          {/* Currency Exchange Information */}
+          {/* Currency Information */}
           <Card
             title="Currency Information"
             description="Stay informed about currency exchange during your trip"

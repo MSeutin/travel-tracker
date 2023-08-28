@@ -4,7 +4,7 @@ export const fetchTime = async (lat, lon) => {
     // fetch time logic
     try {
         // Implement time API call using axios or another library
-        const API_KEY = process.env.REACT_APP_IPGEOLOCATION_API_KEY;
+        const API_KEY = process.env.REACT_APP_TIME_API_KEY;
         const url = `https://api.ipgeolocation.io/timezone?apiKey=${API_KEY}&lat=${lat}&long=${lon}`;
         const response = await axios.get(url, {
           headers: {
